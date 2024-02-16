@@ -34,9 +34,10 @@ module.exports = {
     }
 
     const createdUser = await strapi.admin.services.user.create(attributes);
+    const { registrationToken } = createdUser;
 
     const userInfo = strapi.admin.services.user.sanitizeUser(createdUser);
-
+    userInfo.registrationToken = registrationToken;
     // Send 201 created
     ctx.created({ data: userInfo });
   },
